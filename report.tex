@@ -1,5 +1,10 @@
 \documentclass[a4j, titlepage]{jarticle}
 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+
 \title{2024年度 専攻科 2S特別演習 電気工学分野\\温度制御シミュレータをターゲットにした各種方式によるPIDパラメータ調整の試行}
 \author{釧路工業高等専門学校 電子情報システム工学専攻 2年\\泉 知成, 河江 蒼生, 坂本 尊, 福島 祥太, 森 隆志}
 \date{\today}
@@ -9,7 +14,47 @@
 \tableofcontents
 \clearpage
 \section{演習の目的}
+
+\clearpage
 \section{選択した調整方法での作業プロセス}
+本実験では, 以下の$2$つの方法を使用して変数値の調整を行う.
+
+\subsection{選択した調整方法}
+\begin{itemize}
+    \item Ziegler \& Nichols 限界感度法 (2.2)
+    \item Ziegler \& Nichols ステップ応答法 (2.3)
+\end{itemize}
+
+\subsection{Ziegler \& Nichols 限界感度法の作業プロセス}
+\begin{enumerate}
+    \item Pのみを使用する様に設定する.(但し、I, Dは0に)
+    \item 目標値を $100\,^{\circ}\mathrm{C}$, 比例帯 (PB) も始めは大きく設定する.
+    \item 温度調節開始。
+    \item 温度が持続振動状（波形的な曲線）になるまで比例帯 PB を変えて試行する.
+    \item 持続振動状態になった時の周期 $T_c$ と、PB から比例ゲイン $K_{pc}$ を求める
+    \item PID 制御のパラメータを以下の計算式で求める.
+\end{enumerate}
+\begin{align*}
+    K_p = 0.6 * K_{pc} \\
+    T_i = 0.5 * T_{c} \\
+    T_d = 0.125 * T_{c}
+\end{align*}
+
+\subsection{Ziegler \& Nichols ステップ応答法の作業プロセス}
+\begin{enumerate}
+    \item ON/OFFを使用する様に設定する.
+    \item 目標値を $100\, ^{\circ}\mathrm{C}$ に設定する.
+    \item 温度調節開始.
+    \item 温度の変化カーブを観測.
+    \item 観測結果からムダ時間 $L$,勾配 $R$ を求める.
+    \item PID 制御のパラメータを以下の計算式で求める.
+\end{enumerate}
+\begin{align*}
+    P:\ K_p = \frac{1.2}{R * L}, \\
+    I:\ T_i = 2 * L, \\
+    D:\ T_d = 0.5 * L
+\end{align*}
+
 \section{計測および各種計算等の結果}
 \section{結果}
 \section{考察検討}
