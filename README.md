@@ -11,6 +11,9 @@ platex report && platex report && dvipdfmx report
 ```
 git checkout -b yourname_section1
 ```
+```
+git push -u origin yourname_section1
+```
 
 ### 作業内容をアップロードする
 yourname_section1ブランチに作業内容を反映させるとき
